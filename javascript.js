@@ -8,10 +8,10 @@ const subtract = (numOne, numTwo) => numOne - numTwo;
 const multiply = (numOne, numTwo) => numOne * numTwo;
 const divide = (numOne, numTwo) => numOne / numTwo;
 const operate = (operator, numOne, numTwo) => {
-    if (operator === '+') return add(numOne, numTwo);
-    if (operator === '-') return subtract(numOne, numTwo);
-    if (operator === 'x') return multiply(numOne, numTwo);
-    if (operator === '%') return divide(numOne, numTwo);
+    if (operator == '+') return add(numOne, numTwo);
+    if (operator == '-') return subtract(numOne, numTwo);
+    if (operator == 'x') return multiply(numOne, numTwo);
+    if (operator == '%') return divide(numOne, numTwo);
 }
 
 let numSetOne = [];
@@ -33,6 +33,11 @@ const equals = () => {
     numSetTwoJoined = Number(numSetTwoJoined);
     numSetOneJoined = operate(currentOp, numSetOneJoined, numSetTwoJoined);
     display.textContent = `${numSetOneJoined}`;
+    numSetTwoJoined = ''
+    numSetTwo = [];
+    setTotal = [];
+    currentOp = [];
+    numSetOne = [numSetOneJoined];
 }
 
 const clearCalc = () => {
@@ -76,7 +81,8 @@ numButtons.forEach((num) => {
 
 operators.forEach((op) => {
     op.addEventListener('click', () => {
-        if (setTotalError === true) return alert("You must calculate your values or add more numbers!");
+        opCheck = setTotal.some(value => value === 'x' || value === '+' || value === '-' || value === '%');
+        if (opCheck === true) return alert("You must calculate your values or add more numbers!");
         currentOp = [`${op.textContent}`];
         display.textContent = numSetOneJoined + ` ${currentOp}`;
         setTotal = Array.from(display.textContent);
