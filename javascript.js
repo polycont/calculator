@@ -6,31 +6,48 @@ const divide = (numOne, numTwo) => numOne / numTwo;
 const operate = (operator, numOne, numTwo) => {
     if (operator === '+') add(numOne, numTwo);
     if (operator === '-') subtract(numOne, numTwo);
-    if (operator === '*') multiply(numOne, numTwo);
-    if (operator === '/') divide(numOne, numTwo);
+    if (operator === 'x') multiply(numOne, numTwo);
+    if (operator === '%') divide(numOne, numTwo);
 }
 
 let numSetOne = [];
 let numSetTwo = [];
 let setTotal = [];
 let currentOp = [];
-
 let setTotalError = false;
 
 const display = document.querySelector('.display');
 const numButtons = document.querySelectorAll('.numButtons');
 const operators = document.querySelectorAll('.operators');
+const equal = document.getElementById('=');
+const clear = document.getElementById('clear');
 
 // TODO: Add click sound fx & beeps for button presses
 // TODO: Add animation for button presses
 
+const equals = () => {
+    if (numSetOne.length === 0 || numSetTwo.length === 0) return alert("Please enter your numbers first.");
+    numSetOneJoined = Number(numSetOneJoined);
+    numSetTwoJoined = Number(numSetTwoJoined);
+    console.log(numSetOneJoined);
+    console.log(numSetTwoJoined);
+    numSetOneJoined = operate(currentOp, numSetOneJoined, numSetTwoJoined);
+    numSetTwo = [];
+    setTotal = [];
+    currentOp = [];
+    setTotalError = false;
+    display.textContent = `${numSetOneJoined}`;
+}
+
+equal.addEventListener('click', () => {
+    equals();
+});
+
+
+
 numButtons.forEach((num) => { 
     num.addEventListener('click', () => {
         setTotalError = setTotal.some(value => value === 'x' || value === '+' || value === '-' || value === '%');
-        if (setTotalError === true) {
-            setTotalError = true;
-           
-        }
         if (setTotalError === true) {
             numSetTwo.push(num.textContent);
             numSetTwoJoined = numSetTwo.join('');
@@ -44,6 +61,7 @@ numButtons.forEach((num) => {
 
 operators.forEach((op) => {
     op.addEventListener('click', () => {
+        if (setTotalError === true) return alert("You must calculate your values or add more numbers!");
         currentOp = [`${op.textContent}`];
         display.textContent = numSetOneJoined + ` ${currentOp}`;
         setTotal = Array.from(display.textContent);
