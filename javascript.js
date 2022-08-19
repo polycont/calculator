@@ -1,6 +1,9 @@
 
 // TODO: Add click sound fx & beeps for button presses
 // TODO: Add animation for button presses
+// TODO: Add decimal button
+// TODO: Add keyboard support
+// TODO: Add divide by zero catch.
 
 // Basic computation functions.
 const add = (numOne, numTwo) => numOne + numTwo;
@@ -24,14 +27,14 @@ let clearCheck = true;
 const display = document.querySelector('.display');
 const numButtons = document.querySelectorAll('.numButtons');
 const operators = document.querySelectorAll('.operators');
-const equal = document.getElementById('=');
+const equal = document.getElementById('equal');
 const clear = document.getElementById('clear');
 
 const equals = () => {
     if (numSetOne.length === 0 || numSetTwo.length === 0) return alert("Please enter your numbers first.");
     numSetOneJoined = Number(numSetOneJoined);
     numSetTwoJoined = Number(numSetTwoJoined);
-    numSetOneJoined = operate(currentOp, numSetOneJoined, numSetTwoJoined);
+    numSetOneJoined = operate(currentOp, numSetOneJoined, numSetTwoJoined).toFixed(2);
     display.textContent = `${numSetOneJoined}`;
     numSetTwoJoined = ''
     numSetTwo = [];
@@ -49,7 +52,7 @@ const clearCalc = () => {
     numSetTwoJoined = '';
     setTotalError = false;
     clearCheck = true;
-    display.textContent = ''
+    display.textContent = '';
 }
 
 equal.addEventListener('click', () => {
